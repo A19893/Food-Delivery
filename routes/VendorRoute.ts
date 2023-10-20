@@ -1,9 +1,15 @@
-import express, {Request, Response, NextFunction} from 'express';
+import express from "express";
+import {
+  GetVendorProfile,
+  UpdateVendorProfile,
+  UpdateVendorService,
+  VendorLogin,
+} from "../controllers";
 
-const router =express.Router();
+const router = express.Router();
 
-router.get('/',(req:Request,res:Response,next: NextFunction)=>{
-    res.json("Hello from Vendor Route")
-})
-
-export {router as VendorRouter};
+router.post("/login", VendorLogin);
+router.get("/profile", GetVendorProfile);
+router.patch("/profile", UpdateVendorProfile);
+router.patch("/service", UpdateVendorService);
+export { router as VendorRouter };
