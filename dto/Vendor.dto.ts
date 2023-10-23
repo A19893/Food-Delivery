@@ -11,7 +11,7 @@ export interface CreateVendorInput{
     password: string;
 }
 
-export interface VendorLoginiNPUTS{
+export interface VendorLoginInputs{
     email: string,
     password: string
 }
@@ -22,4 +22,11 @@ export interface VendorPayload {
     name: string;
     foodTypes: string;
     
+}
+
+export interface EditVendorInpts {
+    name: string;
+    address: string;
+    phone: string;
+    foodType: string;
 }

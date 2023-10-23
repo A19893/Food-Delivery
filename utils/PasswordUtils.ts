@@ -16,8 +16,8 @@ export const ValidatePassword =async(enteredPassword: string, savedPassword:stri
 }
 
 export const GenerateSignature = (payload: VendorPayload) =>{
-  const secret_Key = process.env.APP_SECRET
- return jwt.sign(payload,secret_Key!,{expiresIn: '1d'})
+  const secret_Key = process.env.APP_SECRET;
+ return jwt.sign(payload,secret_Key!,{expiresIn: '1d'});
 }
 
 export const ValidateSignature = async(req:Request)=>{
@@ -25,6 +25,9 @@ export const ValidateSignature = async(req:Request)=>{
   const secret_Key = process.env.APP_SECRET as string;
   if(signatureKey){
     const payload = jwt.verify(signatureKey.split(' ')[1],secret_Key) as AuthPayload;
+    console.log("payload",payload)
+    req.user= payload;
+    return true;
   }
   return false;
 }
