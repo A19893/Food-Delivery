@@ -25,7 +25,6 @@ export const ValidateSignature = async(req:Request)=>{
   const secret_Key = process.env.APP_SECRET as string;
   if(signatureKey){
     const payload = jwt.verify(signatureKey.split(' ')[1],secret_Key) as AuthPayload;
-    console.log("payload",payload)
     req.user= payload;
     return true;
   }

@@ -1,6 +1,6 @@
 import mongoose, { ConnectOptions } from "mongoose";
 
-export const connectWithDatabase = () => {
+export default async() => {
   mongoose
   .connect('mongodb://127.0.0.1:27017', {
     useNewUrlParser: true,

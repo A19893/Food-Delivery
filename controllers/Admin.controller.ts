@@ -2,54 +2,16 @@ import { Request, Response, NextFunction } from "express";
 import { CreateVendorInput } from "../dto";
 import { Vendor } from "../models";
 import { GeneratePassword, GenerateSalt } from "../utils";
-
-export const findVendor = async (id?: string | undefined, email?: string) => {
-  if (email) return await Vendor.findOne({ email: email });
-  else return await Vendor.findById(id);
-};
+import { findVendor } from "../utils/findVendor";
+import { CreateVendorService, GetVendorByIdService, GetVendorService } from "../services/Admin.service";
 
 export const CreateVendor = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const {
-    name,
-    ownerName,
-    foodType,
-    email,
-    password,
-    pincode,
-    address,
-    phone,
-  } = <CreateVendorInput>req.body;
-
-  const existingVendor = await findVendor('',email);
-  if (existingVendor !== null) {
-    return res.json("Vendor Already Exists with this email ID!!");
-  }
-  //generate a salt
-  const Salt = await GenerateSalt();
-  //encrypt the password using the salt
-  const Userpassword = await GeneratePassword(password, Salt);
-
-  const createVendor = await Vendor.create({
-    name: name,
-    ownerName: ownerName,
-    foodType: foodType,
-    pincode: pincode,
-    address: address, 
-    phone: phone,
-    email: email,
-    password: Userpassword,
-    salt: Salt,
-    rating: 0,
-    serviceAvailable: false,
-    coverImages: [],
-    foods: []
-  });
-
-  return res.json(createVendor);
+   const response = await CreateVendorService(req,res);
+   return response;
 };
 
 export const GetVendors = async (
@@ -57,13 +19,8 @@ export const GetVendors = async (
   res: Response,
   next: NextFunction
 ) => {
-  const vendors = await Vendor.find();
-
-  if (vendors === null) {
-    return res.json({ message: "No Vendors Registered Till Now!!" });
-  }
-
-  return res.json(vendors);
+  const response = await GetVendorService(req,res);
+  return response;
 };
 
 export const GetVendorByID = async (
@@ -71,10 +28,6 @@ export const GetVendorByID = async (
   res: Response,
   next: NextFunction
 ) => {
-  const id = req.params.id;
-  const SpecificVendor = await findVendor(id)
-  if (SpecificVendor === null) {
-    return res.json({ message: "No Vendors Found By this id" });
-  }
-  return res.json(SpecificVendor);
+  const response = await GetVendorByIdService(req,res);
+  return response;
 };
