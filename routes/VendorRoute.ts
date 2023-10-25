@@ -31,4 +31,4 @@ router.patch("/service",Authenticate, UpdateVendorService);
 router.patch('/coverImage',Authenticate,upload,updateVendorCoverImage);
 router.post('/food',Authenticate, upload, AddFood)
 router.get('/foods',Authenticate,  GetFoods)
-export { router as VendorRouter };
+export { router as VendorRouter }; 

@@ -9,6 +9,7 @@ export const VendorLoginService =async (req:Request, res:Response) => {
     const {email, password}=<VendorLoginInputs>req.body;
 
     const existingVendor = await findVendor('',email);
+    console.log(existingVendor)
     if(existingVendor!==null){
         const Validation = await ValidatePassword(password,existingVendor.password,existingVendor.salt);
         if(Validation){
@@ -132,10 +133,8 @@ export const AddFoodService =async (req:Request,res:Response) => {
 
 export const GetFoodService = async(req:Request, res:Response) =>{
     const user = req.user;
-
   if(user){
    const Foods = await Food.find({vendorId: user._id});
-
    if(Foods!==null){
     return res.json(Foods) 
    }
