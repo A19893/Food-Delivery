@@ -1,8 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { CreateVendorInput } from "../dto";
-import { Vendor } from "../models";
-import { GeneratePassword, GenerateSalt } from "../utils";
-import { findVendor } from "../utils/findVendor";
 import { CreateVendorService, GetVendorByIdService, GetVendorService } from "../services/Admin.service";
 
 export const CreateVendor = async (

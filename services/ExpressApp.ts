@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import bodyParser from "body-parser";
-import { AdminRouter, VendorRouter } from "../routes";
+import { AdminRouter, ShoppingRouter, VendorRouter } from "../routes";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env.dev" });
@@ -14,7 +14,7 @@ app.use('uploads', express.static("uploads"));
 
 app.use("/admin", AdminRouter);
 app.use("/vendor", VendorRouter);
-
+app.use(ShoppingRouter);
 return app;
 }
 
