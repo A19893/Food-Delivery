@@ -21,7 +21,6 @@ export interface VendorPayload {
     email: string;
     name: string;
     foodTypes: string;
-    
 }
 
 export interface EditVendorInpts {

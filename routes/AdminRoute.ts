@@ -9,8 +9,5 @@ router.get('/vendors', GetVendors);
 
 router.get('/vendor/:id', GetVendorByID);
 
-router.get('/',(req:Request,res:Response,next: NextFunction)=>{
-    res.json("Hello from Admin Route")
-})
 
 export {router as AdminRouter};
