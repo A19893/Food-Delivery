@@ -219,3 +219,16 @@ export const EditCustomerProfile = async (
     message: "Error Updating User Profile",
   });
 };
+
+export const CreateOrder =async (req:Request, res:Response, next:NextFunction) => {
+  
+}
+
+
+export const GetOrders =async (req:Request, res:Response, next:NextFunction) => {
+  
+}
+
+export const GetOrderById =async (req:Request, res:Response, next:NextFunction) => {
+  
+}
