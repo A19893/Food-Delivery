@@ -29,7 +29,9 @@ router.patch('/profile', EditCustomerProfile)
 
 
 //Order
-
+router.post('/create-order');
+router.get('/orders');
+router.get('/order/:id');
 
 //Payment
 export {router as UserRouter}

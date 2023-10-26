@@ -15,7 +15,6 @@ import {
   onRequestOTP,
 } from "../utils";
 import { Customer } from "../models";
-import { resolveTypeReferenceDirective } from "typescript";
 
 export const CustomerSignup = async (
   req: Request,
