@@ -1,10 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
-import { GenerateSignature, ValidatePassword } from "../utils";
-import { EditVendorInpts, VendorLoginInputs } from "../dto";
-import { Food } from "../models";
-import { CreateFoodInputs } from "../dto/Food.dto";
-import { findVendor } from "../utils/findVendor";
 import { AddFoodService, GetFoodService, GetVendorProfileService, UpdateCoverImageService, UpdateVendorProfileService, UpdateVendorServices, VendorLoginService } from "../services/Vendor.service";
 
 export const VendorLogin= async(req:Request,res:Response, next:NextFunction)=>{
@@ -13,13 +7,11 @@ export const VendorLogin= async(req:Request,res:Response, next:NextFunction)=>{
 }
 
 export const GetVendorProfile = async(req:Request,res:Response,next:NextFunction)=>{
-
   const response = await GetVendorProfileService(req,res);
   return response;
 }
 
 export const UpdateVendorProfile = async(req:Request,res:Response,next:NextFunction)=>{
-  
   const response = await UpdateVendorProfileService(req,res);
   return response;
 }

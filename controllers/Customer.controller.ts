@@ -223,7 +223,6 @@ export const EditCustomerProfile = async (
 
 export const CreateOrder =async (req:Request, res:Response, next:NextFunction) => {
   //grab current login customer
-  
   const customer = req.user;
   if(customer){
   // create an order ID
