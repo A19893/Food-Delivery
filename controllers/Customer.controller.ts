@@ -3,6 +3,7 @@ import { plainToClass } from "class-transformer";
 import {
   CreateCustomerInputs,
   EditCutomerProfileInputs,
+  OrderInputs,
   UserLoginInputs,
 } from "../dto/Customer.dto";
 import { validate } from "class-validator";
@@ -14,7 +15,7 @@ import {
   ValidatePassword,
   onRequestOTP,
 } from "../utils";
-import { Customer } from "../models";
+import { Customer, Food } from "../models";
 
 export const CustomerSignup = async (
   req: Request,
@@ -221,7 +222,27 @@ export const EditCustomerProfile = async (
 };
 
 export const CreateOrder =async (req:Request, res:Response, next:NextFunction) => {
+  //grab current login customer
   
+  const customer = req.user;
+  if(customer){
+  // create an order ID
+  const orderId = Math.floor(Math.random() * 89999) + 1000;
+
+  const profile = await Customer.findById(customer._id);
+
+  const cart =<[OrderInputs]>req.body;
+
+  let carItems = Array();
+
+  let netAmount = 0.0;
+
+    // Calculate order amount
+  const foods = await Food.find().where('_id').in(cart.map(item => item._id)).exec();
+  //  Create Order with Item descriptions
+
+  // Finally update orders to user accounts
+  }
 }
 
 

@@ -37,3 +37,9 @@ import { IsEmail, IsNotEmpty, Length } from "class-validator";
   @Length(6,16)
   address: string;
 }
+
+export class OrderInputs {
+   _id: string;
+
+   unit: number;
+}
