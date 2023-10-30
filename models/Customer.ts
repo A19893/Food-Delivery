@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { StringLiteral } from "typescript";
+import { OrderDoc } from "./Order";
 
 interface CustomerDoc extends Document {
   email: string;
@@ -14,6 +14,7 @@ interface CustomerDoc extends Document {
   otp_expiry: Date;
   lat: number;
   lng: number;
+  orders: [OrderDoc];
 }
 
 const CustomerSchema = new Schema(
@@ -61,11 +62,17 @@ const CustomerSchema = new Schema(
     lng: {
       type: Number,
     },
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Orders",
+      },
+    ],
   },
   {
     toJSON: {
       transform(doc, ret) {
-        delete ret.password
+        delete ret.password;
         delete ret.__v;
         delete ret.createdAt;
         delete ret.updatedAt;

@@ -27,7 +27,7 @@ export const updateVendorCoverImage = async(req:Request, res:Response, next:Next
 }
 export const AddFood = async(req:Request,res:Response,next:NextFunction)=>{
   const response = await AddFoodService(req,res);
-  return response;
+  return response; 
 }
 
 export const GetFoods = async(req:Request,res:Response,next:NextFunction)=>{
