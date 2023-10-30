@@ -15,6 +15,7 @@ interface CustomerDoc extends Document {
   lat: number;
   lng: number;
   orders: [OrderDoc];
+  cart: [any];
 }
 
 const CustomerSchema = new Schema(
@@ -68,6 +69,19 @@ const CustomerSchema = new Schema(
         ref: "Orders",
       },
     ],
+    cart:[
+      {
+        food: {
+          type: Schema.Types.ObjectId,
+          ref: 'food',
+          require: true
+        },
+        unit: {
+          type: Number,
+          require: true
+        }
+      }
+    ]
   },
   {
     toJSON: {

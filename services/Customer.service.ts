@@ -176,7 +176,7 @@ export const GetCustomerProfileService = async (
   });
 };
 
-export const EditCstomerProfileService = async (
+export const EditCustomerProfileService = async (
   req: Request,
   res: Response
 ) => {
@@ -256,7 +256,7 @@ export const CreateOrderService = async (req: Request, res: Response) => {
 
 export const GetOrdersService = async (req: Request, res: Response) => {
   const customer = req.user;
-
+  console.log("aaya")
   if (customer) {
     const CustomerOrders = await Customer.findById(customer._id).populate(
       "orders"
@@ -277,3 +277,64 @@ export const GetOrderByIdService = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "No Orders found by this id" });
   }
 };
+
+export const AddToCartService = async(req:Request,res:Response)=>{
+const customer = req.user;
+if(customer){
+  const profile = await Customer.findById(customer._id).populate('cart.food');
+  let carItems = Array();
+
+  const {_id, unit} = <OrderInputs>req.body;
+  const food = await Food.findById(_id);
+  if(profile){
+    //Check for Cart items
+    carItems = profile.cart;
+    if(carItems.length > 0){
+      //check and update unit
+      let existFoodItem = carItems.filter((item) => item.food._id.toString() === _id);
+      console.log(existFoodItem)
+      if(existFoodItem.length > 0){
+        const index = carItems.indexOf(existFoodItem[0]);
+        if(unit > 0){
+          carItems[index] = {food, unit};
+        }else{
+          carItems.splice(index,1)
+        }
+      }
+      else{
+        carItems.push({food, unit})
+      }
+    }
+    if(carItems){
+      profile.cart = carItems as any;
+      const CartResult = await profile.save();
+      return res.status(200).json(CartResult)
+    }
+  }
+}
+return res.status(400).json({message:"Error while adding to Cart"})
+}
+
+export const GetCartItemService = async(req:Request,res:Response)=>{
+  const customer = req.user;
+  if(customer){
+  const profile = await Customer.findById(customer._id).populate("cart.food");
+  if(profile){
+   return res.status(200).json(profile.cart);
+  }
+  }
+  return res.status(400).json({message:"Error while getting cart item"})
+}
+
+export const DeleteCartItemService = async(req:Request,res:Response)=>{
+  const customer = req.user;
+  if(customer){
+  const profile = await Customer.findById(customer._id).populate("cart.food");
+  if(profile){
+   profile.cart = [] as any;
+   const CartResult = await profile.save();
+   return res.status(200).json(CartResult)
+  }
+  }
+  return res.status(400).json({message:"Cart is already empty"})
+}

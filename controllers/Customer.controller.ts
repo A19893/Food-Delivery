@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import {
+  AddToCartService,
   CreateOrderService,
   CustomerLoginService,
   CustomerSignUpService,
   CustomerVeirfyService,
-  EditCstomerProfileService,
+  DeleteCartItemService,
+  EditCustomerProfileService,
+  GetCartItemService,
   GetCustomerProfileService,
   GetOrderByIdService,
+  GetOrdersService,
   RequestOtpService,
 } from "../services/Customer.service";
-import { Order } from "../models";
 
 export const CustomerSignup = async (
   req: Request,
@@ -61,7 +64,7 @@ export const EditCustomerProfile = async (
   res: Response,
   next: NextFunction
 ) => {
-  const response = await EditCstomerProfileService(req, res);
+  const response = await EditCustomerProfileService(req, res);
   return response;
 };
 
@@ -79,7 +82,7 @@ export const GetOrders = async (
   res: Response,
   next: NextFunction
 ) => {
-  const response = await CreateOrderService(req, res);
+  const response = await GetOrdersService(req, res);
   return response;
 };
 
@@ -91,3 +94,19 @@ export const GetOrderById = async (
   const response = await GetOrderByIdService(req, res);
   return response;
 };
+
+
+export const AddToCart = async(req:Request,res:Response) => {
+const response = await AddToCartService(req,res);
+return response;
+}
+
+export const GetCartItem = async(req:Request,res:Response) => {
+const response = await GetCartItemService(req,res);
+return response;
+}
+
+export const DeleteCartItem = async(req:Request,res:Response) => {
+  const response = await DeleteCartItemService(req,res);
+  return response;
+}
