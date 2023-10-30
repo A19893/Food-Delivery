@@ -36,7 +36,7 @@ export const GetVendorProfileService =async (req: Request, res:Response) => {
     return res.json(existingVendor);
   }
 
-  return res.json({"message": "Usr Credential not Valid!!"})
+  return res.json({"message": "User Credential not Valid!!"})
 }
 
 export const UpdateVendorProfileService = async(req:Request, res:Response) => {
@@ -53,7 +53,6 @@ export const UpdateVendorProfileService = async(req:Request, res:Response) => {
       const savedResult = await existingVendor.save();
       return res.json(savedResult);
     }
-     console.log("vendor",existingVendor)
     return res.json(existingVendor);
   }
 
